@@ -10,23 +10,23 @@ namespace WebChatApi
         {
             app.MapGet("/rooms/{roomId}/join", async (
                         string roomId,
-                        HttpContext httpContext,
+                        HttpContext context,
                         IEventBroadcaster broadcaster,
-                        CancellationToken cancellationToken) =>
+                        CancellationToken ct) =>
                     {
-                        httpContext.Response.Headers.Append("Content-Type", "text/event-stream");
+                        context.Response.Headers.Append("Content-Type", "text/event-stream");
 
                         var reader = broadcaster.Subscribe();
 
-                        await foreach (var (msgRoomId, data) in reader.ReadAllAsync(cancellationToken))
+                        await foreach (var (msgRoomId, data) in reader.ReadAllAsync(ct))
                         {
                             if (msgRoomId != roomId) continue;
 
-                            await httpContext.Response.WriteAsync("event: messageReceived\n", cancellationToken);
-                            await httpContext.Response.WriteAsync("data: ", cancellationToken);
-                            await JsonSerializer.SerializeAsync(httpContext.Response.Body, data, cancellationToken: cancellationToken);
-                            await httpContext.Response.WriteAsync("\n\n", cancellationToken);
-                            await httpContext.Response.Body.FlushAsync(cancellationToken);
+                            var json = JsonSerializer.Serialize(data);
+
+                            await context.Response.WriteAsync($"event: messageReceived\n", ct);
+                            await context.Response.WriteAsync($"data: {json}\n\n", ct);
+                            await context.Response.Body.FlushAsync(ct);
                         }
                     })
                     .WithName("JoinRoom");
