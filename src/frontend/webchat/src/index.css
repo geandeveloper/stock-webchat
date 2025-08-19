@@ -1,0 +1,162 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* DevChat Design System - Visual Studio Theme
+All colors MUST be HSL. Inspired by Visual Studio dark theme.
+*/
+
+@layer base {
+  :root {
+    /* Visual Studio inspired color palette */
+    --vs-dark-bg: 240 21% 15%;
+    --vs-darker-bg: 240 21% 12%;
+    --vs-light-bg: 240 9% 20%;
+    
+    /* Chat specific colors */
+    --user-message: 280 100% 60%;
+    --user-message-dark: 280 100% 50%;
+    --bot-message: 270 50% 75%;
+    --bot-message-dark: 270 30% 60%;
+    
+    /* Text colors */
+    --vs-text-primary: 0 0% 95%;
+    --vs-text-secondary: 0 0% 70%;
+    --vs-text-muted: 0 0% 55%;
+    
+    /* Accent colors */
+    --vs-purple-accent: 280 100% 70%;
+    --vs-purple-glow: 280 100% 80%;
+
+    --background: var(--vs-dark-bg);
+    --foreground: var(--vs-text-primary);
+
+    --card: var(--vs-darker-bg);
+    --card-foreground: var(--vs-text-primary);
+
+    --popover: var(--vs-darker-bg);
+    --popover-foreground: var(--vs-text-primary);
+
+    --primary: var(--user-message);
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: var(--vs-light-bg);
+    --secondary-foreground: var(--vs-text-primary);
+
+    --muted: var(--vs-light-bg);
+    --muted-foreground: var(--vs-text-muted);
+
+    --accent: var(--vs-purple-accent);
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 240 9% 25%;
+    --input: var(--vs-light-bg);
+    --ring: var(--vs-purple-accent);
+
+    --radius: 0.5rem;
+
+    --sidebar-background: 0 0% 98%;
+
+    --sidebar-foreground: 240 5.3% 26.1%;
+
+    --sidebar-primary: 240 5.9% 10%;
+
+    --sidebar-primary-foreground: 0 0% 98%;
+
+    --sidebar-accent: 240 4.8% 95.9%;
+
+    --sidebar-accent-foreground: 240 5.9% 10%;
+
+    --sidebar-border: 220 13% 91%;
+
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    /* Keep same design for consistency - VS theme is naturally dark */
+    --background: var(--vs-dark-bg);
+    --foreground: var(--vs-text-primary);
+    --card: var(--vs-darker-bg);
+    --card-foreground: var(--vs-text-primary);
+    --popover: var(--vs-darker-bg);
+    --popover-foreground: var(--vs-text-primary);
+    --primary: var(--user-message);
+    --primary-foreground: 0 0% 100%;
+    --secondary: var(--vs-light-bg);
+    --secondary-foreground: var(--vs-text-primary);
+    --muted: var(--vs-light-bg);
+    --muted-foreground: var(--vs-text-muted);
+    --accent: var(--vs-purple-accent);
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 240 9% 25%;
+    --input: var(--vs-light-bg);
+    --ring: var(--vs-purple-accent);
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-mono;
+    font-family: 'Fira Code', 'Consolas', 'Monaco', monospace;
+  }
+}
+
+/* Custom chat animations and utilities */
+@layer utilities {
+  .message-slide-in {
+    animation: slideInUp 0.3s ease-out;
+  }
+  
+  .glow-purple {
+    box-shadow: 0 0 20px hsl(var(--vs-purple-glow) / 0.3);
+  }
+  
+  .message-user {
+    background: hsl(var(--user-message));
+    color: white;
+  }
+  
+  .message-bot {
+    background: hsl(var(--bot-message));
+    color: hsl(var(--vs-dark-bg));
+  }
+  
+  .input-vs {
+    background: hsl(var(--vs-light-bg));
+    border: 1px solid hsl(240 9% 35%);
+    color: hsl(var(--vs-text-primary));
+  }
+  
+  .input-vs:focus {
+    border-color: hsl(var(--vs-purple-accent));
+    box-shadow: 0 0 0 1px hsl(var(--vs-purple-accent));
+  }
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

@@ -1,0 +1,27 @@
+POST http://localhost:5000/rooms/dfeb76ec-d9f9-42c9-a436-d00dda059f6d/messages
+Content-Type: application/json
+
+{
+  "MessageText": "Olá pessoal, essa é uma mensagem de teste!",
+  "UserName": "Gean Silva",
+  "RoomTitle": "Sala de Teste"
+}
+
+### Enviar outra mensagem para a mesma sala (reutilizando roomId)
+POST http://localhost:5000/rooms/00000000-0000-0000-0000-000000000001/messages
+Content-Type: application/json
+
+{
+  "MessageText": "Segunda mensagem na mesma sala",
+  "UserName": "Outro Usuário"
+}
+
+### Enviar mensagem para nova sala (roomId diferente)
+POST http://localhost:5000/rooms/00000000-0000-0000-0000-000000000002/messages
+Content-Type: application/json
+
+{
+  "MessageText": "Mensagem em nova sala",
+  "UserName": "Gean Silva",
+  "RoomTitle": "Nova Sala"
+}
