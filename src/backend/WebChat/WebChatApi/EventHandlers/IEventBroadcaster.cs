@@ -4,7 +4,7 @@ namespace WebChatApi.EventHandlers
 {
     public interface IEventBroadcaster
     {
-        ChannelReader<(string RoomId, object Data)> Subscribe();
+        (ChannelReader<(string roomId, object data)> reader, Action unsubscribe) Subscribe();
         ValueTask PublishAsync(string roomId, object data);
     }
 }

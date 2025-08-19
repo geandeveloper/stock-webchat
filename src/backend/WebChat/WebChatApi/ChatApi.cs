@@ -16,17 +16,24 @@ namespace WebChatApi
                     {
                         context.Response.Headers.Append("Content-Type", "text/event-stream");
 
-                        var reader = broadcaster.Subscribe();
+                        var (reader, unsubscribe) = broadcaster.Subscribe();
 
-                        await foreach (var (msgRoomId, data) in reader.ReadAllAsync(ct))
+                        try
                         {
-                            if (msgRoomId != roomId) continue;
+                            await foreach (var (msgRoomId, data) in reader.ReadAllAsync(ct))
+                            {
+                                if (msgRoomId != roomId) continue;
 
-                            var json = JsonSerializer.Serialize(data);
+                                var json = JsonSerializer.Serialize(data);
 
-                            await context.Response.WriteAsync($"event: messageReceived\n", ct);
-                            await context.Response.WriteAsync($"data: {json}\n\n", ct);
-                            await context.Response.Body.FlushAsync(ct);
+                                await context.Response.WriteAsync("event: messageReceived\n", ct);
+                                await context.Response.WriteAsync($"data: {json}\n\n", ct);
+                                await context.Response.Body.FlushAsync(ct);
+                            }
+                        }
+                        finally
+                        {
+                            unsubscribe();
                         }
                     })
                     .WithName("JoinRoom");
