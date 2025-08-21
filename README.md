@@ -109,10 +109,3 @@ If it does not play inline, click here:
 [▶️ Watch the demo](docs/assets/demo.mp4)
 
 ---
-
-```
-
----
-
-👉 Quer que eu já deixe esse README.md **com badge de build e tecnologias usadas** (tipo RabbitMQ, .NET, SSE) logo no topo para ficar mais “GitHub style”?
-```
